@@ -1,0 +1,551 @@
+<!--
+  portfolio_rodrigo_alves.html
+  --------------------------------------------------
+  Single-file portfolio template (HTML + CSS + JS) ready to open in Sublime.
+  - Dark premium base + vibrant neon cyan + yellow accents (mix of options 1 & 3)
+  - Responsive grid, project cards, and Lightbox (click to expand images)
+  - How to use: replace images in assets/img/, edit texts, add/remove cards.
+
+  Author: Generated for Rodrigo Alves
+  --------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio Rodrigo Alves</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+  <style>
+    :root{
+      --bg:#0b0d10;         /* deep dark */
+      --surface:#0f1216;    /* panels */
+      --muted:#bfc6cf;      /* secondary text */
+      --white:#ffffff;
+
+      /* Mix of Neon Ciano + Yellow Premium */
+      --accent-cyan:#00e0ff;    /* neon cyan */
+      --accent-yellow:#ffd029;  /* pop yellow */
+
+      /* gradients */
+      --grad-1:linear-gradient(90deg,var(--accent-cyan),#6ef0ff 40%,var(--accent-yellow));
+
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+    }
+
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter, Rubik, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,224,255,0.04), transparent 8%),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(255,208,41,0.03), transparent 8%),
+                  var(--bg);
+      color:var(--white); -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    a{color:inherit}
+
+    /* Header */
+    .header{
+      position:fixed;left:0;right:0;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+      padding:18px 36px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      display:flex;flex-direction:column;line-height:1;cursor:default
+    }
+    .logo .name{font-weight:700;font-family:Rubik, Inter;letter-spacing:0.6px}
+    .logo .tag{font-size:12px;color:var(--muted);margin-top:3px}
+
+    nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:8px;color:var(--muted);font-weight:600;font-size:14px;transition:all .18s}
+    nav a:hover{color:var(--white);transform:translateY(-2px)}
+
+    /* Hero */
+    .hero{
+      min-height:88vh;display:grid;grid-template-columns:1fr 520px;align-items:center;padding:110px 6% 60px 6%;gap:40px;
+    }
+    .hero-left{
+      max-width:720px;
+    }
+    .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(0,224,255,0.08),rgba(255,208,41,0.06));color:var(--accent-cyan);font-weight:600;margin-bottom:18px}
+    h1{font-size:44px;line-height:1.02;margin:0 0 14px;background:var(--grad-1);-webkit-background-clip:text;background-clip:text;color:transparent}
+    p.lead{color:var(--muted);font-size:17px;margin:0 0 20px}
+
+    .cta-row{display:flex;gap:14px;margin-top:8px}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;border:0;transition:transform .18s, box-shadow .18s;box-shadow:0 6px 20px rgba(2,6,23,0.6);
+    }
+    .btn:active{transform:translateY(1px)}
+
+    .btn-primary{background:linear-gradient(90deg,var(--accent-cyan),#60e6ff);color:#02111b}
+    .btn-accent{background:var(--accent-yellow);color:#061219}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* Hero mockup */
+    .hero-right{display:flex;align-items:center;justify-content:center}
+    .mockup{
+      width:100%;max-width:520px;border-radius:18px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);box-shadow:0 20px 80px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    .mockup img{width:100%;height:auto;border-radius:12px;display:block}
+
+    /* Sections */
+    section{padding:80px 6%}
+    .section-title{display:flex;align-items:center;gap:18px;margin-bottom:28px}
+    .section-title h2{margin:0;font-size:28px}
+    .section-title .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03));border-radius:2px}
+
+    /* Sobre */
+    .about{display:flex;gap:40px;align-items:center}
+    .about .avatar{width:220px;height:220px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.03)}
+    .about .avatar img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+    .about .bio{max-width:780px}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .chip{padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);font-weight:600;color:var(--muted)}
+
+    /* Grid projects */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.015),transparent);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;position:relative}
+    .card img{width:100%;height:190px;object-fit:cover;border-radius:10px}
+    .card h3{margin:12px 0 8px;font-size:18px}
+    .card p{color:var(--muted);font-size:14px;margin:0 0 12px}
+    .card .meta{display:flex;align-items:center;justify-content:space-between}
+    .card .meta .tools{color:var(--muted);font-size:13px}
+
+    .card::after{
+      content:'';position:absolute;inset:0;border-radius:12px;pointer-events:none;box-shadow:0 12px 40px rgba(0,0,0,0.6);
+      transition:box-shadow .28s
+    }
+    .card:hover{transform:translateY(-8px)}
+    .card:hover::after{box-shadow:0 24px 60px rgba(0,0,0,0.7)}
+
+    /* Lightbox styles */
+    .lightbox{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,8,15,0.75);z-index:80;opacity:0;pointer-events:none;transition:opacity .22s
+    }
+    .lightbox.open{opacity:1;pointer-events:auto}
+    .lightbox-content{max-width:92vw;max-height:92vh;padding:18px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .lightbox img{max-width:100%;max-height:80vh;border-radius:8px;display:block}
+    .lightbox .caption{color:var(--muted);font-size:14px}
+    .lightbox .close{position:absolute;top:22px;right:22px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer}
+
+    /* Footer */
+    footer{padding:28px 6%;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02)}
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr;min-height:82vh;padding-top:120px}
+      .hero-right{order:-1;margin-bottom:22px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .about{flex-direction:column;align-items:center;text-align:center}
+    }
+    @media (max-width:680px){
+      nav ul{display:none}
+      .grid{grid-template-columns:1fr}
+      h1{font-size:34px}
+      .logo .tag{display:none}
+      .mockup{max-width:420px}
+    }
+
+    /* small helper */
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="logo">
+        <div class="name">Rodrigo <strong style="color:var(--accent-cyan)">Alves</strong></div>
+        <div class="tag">Designer Visual • Editor</div>
+      </div>
+    </div>
+
+    <nav aria-label="Main Navigation">
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-left">
+        <div class="eyebrow">Bem Vindo</div>
+        <h1>Designer Visual & Editor Criativo</h1>
+        <p class="lead">Transformo ideias em visuais impactantes — manipulação de imagens e edição de vídeo com resultado profissional e criativo.</p>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" onclick="document.getElementById('projetos').scrollIntoView({behavior:'smooth'})">Ver Projetos</button>
+          <a href="#contato" class="btn btn-accent">Entrar   em contato</a>
+          <a href="#sobre" class="btn btn-ghost">Sobre</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+    <div class="mockup" role="img" aria-label="Mockup de destaque">
+        <img src="img/final1.jpg" alt="Mockup do trabalho" class="hero-image">
+    </div>
+</div>
+
+
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+      <div class="section-title"><h2>Sobre</h2><div class="line"></div></div>
+      <div class="about">
+        <div class="avatar"><img src="img/rosto frente.jpg" alt="Rodrigo Alves" onerror="this.style.objectFit='cover'"></div>
+        <div class="bio">
+          <p>Me chamo Rodrigo Alves, Comecei minha carreira em 2013 estudando edição de vídeo e depois mudei para imagem, Fiquei encantado com as formas de expressão que podemos trazer com a arte. Minha missão é mostrar como podemos usar a criatividade para melhorar o mundo — designer visual com foco em edição de imagens e vídeos. Trabalho com direção de arte, composição e criação de peças para campanhas, redes sociais e identidade visual. Minha prática mistura técnica, estética e soluções que comunicam.
+           </p>
+
+          <div class="chips" aria-hidden="true">
+            <span class="chip">Photoshop</span>
+            <span class="chip">Illustrator</span>
+            <span class="chip">Premiere</span>
+            <span class="chip">After Effects</span>
+            <span class="chip">Canva</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projetos">
+      <div class="section-title"><h2>Projetos</h2><div class="line"></div></div>
+
+      <div class="grid" id="portfolioGrid">
+
+        <!-- Project Card 1 -->
+        <article class="card" tabindex="0">
+          <img src="img/Malandro-Solo.jpg" alt="Projeto 1" data-caption="Projeto 1 — Manipulação de imagem / Campanha" data-full="img/Malandro-Solo.jpg">
+          <h3>Projeto 1 — Campanha Visual</h3>
+          <p class="muted">Composição, tratamento de imagem e variações para redes sociais.</p>
+          <div class="meta">
+            <div class="tools">Photoshop • Illustrator</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+        <!-- Project Card 2 -->
+        <article class="card" tabindex="0">
+          <img src="img/fox1.jpg" alt="Projeto 2" data-caption="Projeto 2 — Identidade Visual" data-full="img/fox1.jpg">
+          <h3>Projeto 2 — Identidade</h3>
+          <p class="muted">Criação de identidade visual e aplicações para marca.</p>
+          <div class="meta">
+            <div class="tools">Illustrator • Mockups</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+        <!-- Project Card 3 -->
+        <article class="card" tabindex="0">
+          <img src="img/fox2.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/fox2.jpg">
+          <h3>Projeto 3 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+        <!-- Add more cards as needed -->
+<!-- Project Card 4 -->
+        <article class="card" tabindex="0">
+          <img src="img/padraocor.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/padraocor.jpg">
+          <h3>Projeto 4 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+<!--Project Card 5 -->
+        <article class="card" tabindex="0">
+          <img src="img/e.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/e.jpg">
+          <h3>Projeto 5 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+        <!--Project Card 6 -->
+        <article class="card" tabindex="0">
+          <img src="img/cuidar.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/cuidar.jpg">
+          <h3>Projeto 6 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+        <!--Project Card 7 -->
+        <article class="card" tabindex="0">
+          <img src="img/trabalho4.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/trabalho4.jpg">
+          <h3>Projeto 7 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+<!--Project Card 8 -->
+        <article class="card" tabindex="0">
+          <img src="img/artecaixa.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/artecaixa.jpg">
+          <h3>Projeto 8 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>        
+
+        <!--Project Card 9 -->
+        <article class="card" tabindex="0">
+          <img src="img/malandrofinal.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/malandrofinal.jpg">
+          <h3>Projeto 9 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>    
+
+         <!--Project Card 10 -->
+        <article class="card" tabindex="0">
+          <img src="img/final1.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/final1.jpg">
+          <h3>Projeto 10 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+              <!--Project Card 11 -->
+        <article class="card" tabindex="0">
+          <img src="img/Criança.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/Criança.jpg">
+          <h3>Projeto 11 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+            <!--Project Card 12 -->
+        <article class="card" tabindex="0">
+          <img src="img/final.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/final.jpg">
+          <h3>Projeto 12 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+         <!--Project Card 13 -->
+        <article class="card" tabindex="0">
+          <img src="img/jogo.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/jogo.jpg">
+          <h3>Projeto 13 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+        <!--Project Card 14 -->
+        <article class="card" tabindex="0">
+          <img src="img/capalivro.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/capalivro.jpg">
+          <h3>Projeto 14 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+
+         <!--Project Card 15 -->
+        <article class="card" tabindex="0">
+          <img src="img/guaravita.jpg" alt="Projeto 3" data-caption="Projeto 3 — Motion Graphics" data-full="img/guaravita.jpg">
+          <h3>Projeto 15 — Motion</h3>
+          <p class="muted">Frames e key visuals para peças em vídeo.</p>
+          <div class="meta">
+            <div class="tools">Premiere • After Effects</div>
+            <button class="btn btn-ghost" onclick="openLightbox(this.closest('.card').querySelector('img'))">Ver</button>
+          </div>
+        </article>
+        </div>
+
+      <div class="card">
+  <video src="https://res.cloudinary.com/dgjtcwrrf/video/upload/v1765211865/ass_lq0oy2.mp4" 
+         controls 
+         poster="img/assthumb.jpg">
+  </video>
+</div>
+
+</div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+      <div class="section-title"><h2>Contato</h2><div class="line"></div></div>
+      <div style="max-width:760px;margin:0 auto;text-align:center">
+        <p class="muted">Se interessou? Mande um e-mail ou uma mensagem no Instagram — respondo rápido.</p>
+        <p style="margin-top:18px"><a class="btn btn-primary" href="mailto:seuemail@gmail.com">E-mail: rodrigoalveslrd1601@gmail.com</a></p>
+
+        <p style="margin-top:18px"><a class="btn btn-primary" href="https://www.instagram.com/lord.1601/">@Lord.1601</a></p>
+        <p style="margin-top:12px" class="muted"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Rodrigo Alves — Portfólio
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-content" role="document">
+      <button class="close" aria-label="Fechar" onclick="closeLightbox()">Fechar ✕</button>
+      <img id="lightboxImg" src="" alt="Preview">
+      <div class="caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    // Lightbox functions
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+
+    function openLightbox(imgEl){
+      const src = imgEl.dataset.full || imgEl.src;
+      const caption = imgEl.dataset.caption || imgEl.alt || '';
+      lightboxImg.src = src;
+      lightboxImg.alt = imgEl.alt || '';
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      // focus management
+      lightbox.querySelector('.close').focus();
+    }
+
+    function closeLightbox(){
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden','true');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Close on overlay click
+    lightbox.addEventListener('click', (e)=>{
+      if(e.target === lightbox) closeLightbox();
+    })
+
+    // Close on ESC
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeLightbox();
+    });
+
+    // Accessibility: open image on Enter when card focused
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter'){
+          const img = card.querySelector('img');
+          if(img) openLightbox(img);
+        }
+      })
+    })
+
+    // Small helper: lazy observe images
+    if('IntersectionObserver' in window){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(ent=>{
+          if(ent.isIntersecting){
+            const img = ent.target;
+            if(img.dataset.full && !img.src.includes(img.dataset.full)) img.src = img.dataset.full;
+            io.unobserve(img);
+          }
+        })
+      },{rootMargin:'200px'});
+
+      document.querySelectorAll('.grid img').forEach(img=>io.observe(img));
+    }
+  </script>
+
+  <script>
+  // Permite inserir vídeo dentro do card sem quebrar o layout
+  document.addEventListener("DOMContentLoaded", function () {
+    const videos = document.querySelectorAll(".card video");
+
+    videos.forEach(video => {
+      video.addEventListener("click", () => {
+        if(video.paused){
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const videos = document.querySelectorAll(".card video");
+
+    videos.forEach(video => {
+        video.style.width = "100%";
+        video.style.height = "auto";
+        video.style.maxHeight = "350px";      // ajuste o valor como quiser
+        video.style.objectFit = "contain";      // cover = visual bonito | contain = mostra tudo
+        video.style.borderRadius = "10px";
+        video.style.display = "block";
+        video.style.background = "#000";
+        video.style.marginBottom = "18px";
+        video.style.transition = ".3s";
+
+        // Efeito ao passar o mouse (neon igual imagem)
+        video.addEventListener("mouseover", ()=> {
+            video.style.transform = "translateY(-5px)";
+            video.style.boxShadow = "0 0 20px rgba(138,79,255,.4)";
+        });
+
+        video.addEventListener("mouseout", ()=> {
+            video.style.transform = "translateY(0)";
+            video.style.boxShadow = "none";
+        });
+    });
+
+});
+</script>
+
+<script></script>
+
+</body>
+</html>
